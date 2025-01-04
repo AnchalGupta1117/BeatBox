@@ -46,8 +46,5 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/', (req, res) => {
-  res.send("Signup page");
-});
 
 module.exports = router;

@@ -29,6 +29,12 @@ router.post('/', async (req, res) => {
         status: 400,
       });
     }
+
+    return res.status(200).json({
+        message: 'Login successfully',
+        status: 200,
+      });
+    
     }
     
     catch (err) {
@@ -41,8 +47,5 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/', (req, res) => {
-  res.send("login page");
-});
 
 module.exports = router;
