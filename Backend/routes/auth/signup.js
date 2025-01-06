@@ -1,11 +1,19 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const axios = require('axios');
+const { signupSchema } = require('../../Validations/validation'); 
+const User= require('../../models/user');
+
+
+
+
 const router = express.Router();
-const User = require('../../models/user');
-const { signupSchema } = require('../../Validations/validation');  
 
 router.post('/', async (req, res) => {
     const { name, email, password } = req.body; 
+
+    console.log('Request Body:', req.body);
+
     try {
       const { error } = signupSchema.validate(req.body);
       if (error) {
@@ -38,7 +46,7 @@ router.post('/', async (req, res) => {
       });
 
     } catch (err) {
-      console.error(err);  
+      console.error('Signup Error:',err);  
       res.status(500).json({
         message: 'Internal server error',
         status: 500,

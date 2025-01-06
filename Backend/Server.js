@@ -1,14 +1,19 @@
-const express = require("express");
-const session = require("express-session");
-const bodyParser = require("body-parser");
-const signup = require('./routes/auth/signup.js');
-const login = require('./routes/auth/login.js');
-const logout = require('./routes/auth/logout.js');
-const connectDB = require('./Database/connect.js');
-const mongoose = require("mongoose");
+const express = require('express');
+const session = require('express-session');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const connectDB = require('./Database/connect');  // No need for '.js' extension
+const signup = require('./routes/auth/signup');
+const login = require('./routes/auth/login');
+const logout = require('./routes/auth/logout');
+const dotenv = require('dotenv');
+
+
+dotenv.config();
+
 const app = express();
-const port = 3000;
-require('dotenv').config();
+const port = process.env.PORT;
+const frontendURL = process.env.FRONTEND_URL;
 
 connectDB();
 
@@ -26,6 +31,7 @@ const sessionConfig = {
 };
 
 app.use(session(sessionConfig));
+app.use(cors({ origin: frontendURL, credentials: true }));
 
 app.use('/signup', signup);
 app.use('/login', login);

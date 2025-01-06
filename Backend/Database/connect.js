@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+const dotenv = require('dotenv');
+
+dotenv.config();
 console.log(process.env.MONGO_URL); // remove this after you've confirmed it is working
 
 
@@ -18,5 +20,4 @@ const connectDB = async () => {
   };
 
 
-module.exports = connectDB;
-//   'mongodb://127.0.0.1:27017/BeatBox'
+  module.exports = connectDB;
