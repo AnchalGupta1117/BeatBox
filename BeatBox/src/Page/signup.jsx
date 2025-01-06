@@ -23,8 +23,8 @@ const SignupForm = () => {
 
   const handleSubmit = async () => {
     try {
-      const backendURL = process.env.REACT_APP_BACKEND_URL;
-      console.log("Backend URL:", backendURL); // Log to verify the value 
+      console.log(import.meta.env);
+      const backendURL = import.meta.env.VITE_BACKEND_URL;
       const response = await axios.post(`${backendURL}/signup`, {
         name: formData.Name,
         email: formData.Email,
