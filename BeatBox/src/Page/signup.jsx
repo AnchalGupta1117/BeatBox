@@ -5,6 +5,8 @@ import FormInput from "../components/FormInput";
 import SubmitButton from "../components/Button";
 import FormContainer from "../components/FormContainer";
 import darkTheme from "../components/Theme";
+import { Toaster, toast } from 'react-hot-toast';
+
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -30,12 +32,35 @@ const SignupForm = () => {
         email: formData.Email,
         password: formData.password,
       });
-      alert("signed up successfully!"); 
+      
+      toast.success("Signed up successfully!", {
+        duration: 4000, // Toast will disappear after 4 seconds
+        position: "top-center", 
+        style: {
+          background: "#4caf50", 
+          color: "#fff", 
+          padding: "10px 20px", 
+          borderRadius: "5px", 
+        },
+      });
+
     } catch (error) {
-      alert("Signup failed!"); 
-      console.log(error);
-    }
-  };
+      const errorMessage = error.response?.data?.message || "Signup failed!";
+
+      toast.error(errorMessage, {
+        duration: 4000,
+        position: "top-center",
+        style: {
+          background: "#f44336", 
+          color: "#fff", 
+          padding: "10px 20px",
+          borderRadius: "5px",
+        },
+      });
+
+      console.error(error);
+  }
+};
 
   return (
     <ThemeProvider theme={darkTheme}> 
@@ -67,6 +92,9 @@ const SignupForm = () => {
 
       <SubmitButton onClick={handleSubmit} />
     </FormContainer>
+
+    <Toaster position="bottom-center" reverseOrder={false} />
+
     </ThemeProvider>
   );
 };
