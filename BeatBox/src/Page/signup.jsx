@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {ThemeProvider, CssBaseline } from "@mui/material";
+import {ThemeProvider} from "@mui/material/styles";
+import CssBaseline from '@mui/material/CssBaseline';
 import axios from "axios";
 import FormInput from "../components/FormInput";
 import SubmitButton from "../components/Button";

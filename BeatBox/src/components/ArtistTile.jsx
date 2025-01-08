@@ -6,7 +6,7 @@ const ArtistTile = ({ image, name }) => {
             <img
                 src={image}
                 alt={name}
-                className="w-20 h-20 rounded-full border-2 border-pink-500"
+                className="w-20 h-20 rounded-full border-2 border-primary"
             />
             <h4 className="text-sm text-white mt-1 truncate">{name}</h4>
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const AlbumCard = () => {
     return (
-        <div className="bg-pink-500 text-white p-4 rounded-lg flex items-center">
+        <div className="bg-primary text-white p-4 rounded-lg flex items-center">
             <div className="flex-1">
                 <p className="text-sm">New Album</p>
                 <h2 className="text-lg font-bold">Ranjithame Tamil Song</h2>

@@ -33,7 +33,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="bg-black w-screen min-h-screen text-white">
+    <div className="bg-backgroundColor w-screen min-h-screen text-white">
       <Header />
       <div className="px-4">
         <AlbumCard />

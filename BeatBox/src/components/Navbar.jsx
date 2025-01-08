@@ -9,7 +9,7 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className="fixed bottom-0 w-screen px-6 bg-black text-white py-2 flex justify-around items-center overflow-hidden sm:px-4 md:px-8">
+        <nav className="fixed bottom-0 w-screen px-6 bg-backgroundColor text-white py-2 flex justify-around items-center overflow-hidden sm:px-4 md:px-8">
             {navItems.map((item, index) => (
                 <button key={index} className="flex flex-col items-center">
                     <i className={`${item.icon} text-lg`}></i>
