@@ -8,8 +8,6 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   const { name, email, password } = req.body;
 
-  console.log("Request Body:", req.body);
-
   try {
     const { error } = signupSchema.validate(req.body);
     if (error) {

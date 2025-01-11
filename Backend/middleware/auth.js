@@ -1,5 +1,4 @@
-const checkAuthentication = (req, res, next) => {
-    console.log(req.session);
+  const checkAuthentication = (req, res, next) => {
     if (req.session && req.session.userId) {
       req.body.userId = req.session.userId;
       next();

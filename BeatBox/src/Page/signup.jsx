@@ -27,7 +27,6 @@ const SignupForm = () => {
 
   const handleSubmit = async () => {
     try {
-      console.log(import.meta.env);
       const backendURL = import.meta.env.VITE_PUBLIC_BACKEND_URL;
       const response = await axios.post(
         `${backendURL}/signup`,
