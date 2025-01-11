@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Header";
 import AlbumCard from "../components/AlbumCard";
 import Tabs from "../components/Tabs";
@@ -6,6 +6,7 @@ import HorizontalScrollList from "../components/HorizontalScrollList";
 import SongTile from "../components/SongTile";
 import ArtistTile from "../components/ArtistTile";
 import Navbar from "../components/Navbar";
+import axios from "axios";
 
 const Home = () => {
   const dummySongs = [
@@ -32,6 +33,20 @@ const Home = () => {
     { image: "https://via.placeholder.com/80", name: "Hiphop Tamizha" },
   ];
 
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/profile", {
+          withCredentials: true,
+        });
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
   return (
     <div className="bg-backgroundColor w-screen min-h-screen text-white">
       <Header />
