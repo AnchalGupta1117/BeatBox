@@ -1,14 +1,15 @@
-const express = require("express");
-const session = require("express-session");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const connectDB = require("./Database/connect");
-const signup = require("./routes/auth/signup");
-const login = require("./routes/auth/login");
-const logout = require("./routes/auth/logout");
-const favourites = require("./routes/favourites");
-const profile = require("./routes/user/profile");
-const dotenv = require("dotenv");
+const express = require('express');
+const session = require('express-session');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const connectDB = require('./Database/connect');
+const signup = require('./routes/auth/signup');
+const login = require('./routes/auth/login');
+const logout = require('./routes/auth/logout');
+const favourites = require('./routes/user/favourites');
+const recentlyPlayed = require('./routes/user/recentlyPlayed');
+const profile = require('./routes/user/profile');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -36,14 +37,15 @@ app.use(
   })
 );
 
-app.use("/signup", signup);
-app.use("/login", login);
-app.use("/logout", logout);
-app.use("/favourites", favourites);
-app.use("/profile", profile);
+app.use('/signup', signup);
+app.use('/login', login);
+app.use('/logout', logout);
+app.use('/favourites', favourites);
+app.use('/profile', profile);
+app.use('/recent', recentlyPlayed);
 
-app.get("/", function (req, res) {
-  res.send("Hello World!");
+app.get('/', function (req, res) {
+  res.send('Hello World!');
 });
 
 app.listen(port, function () {

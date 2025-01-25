@@ -51,6 +51,7 @@ const SignupForm = () => {
         },
       });
     } catch (error) {
+      console.error(error);
       const errorMessage = error.response?.data?.message || "Signup failed!";
 
       toast.error(errorMessage, {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/userProvider';
 import Header from '../components/Header';
@@ -8,10 +8,14 @@ import HorizontalScrollList from '../components/HorizontalScrollList';
 import SongTile from '../components/SongTile';
 import ArtistTile from '../components/ArtistTile';
 import Navbar from '../components/Navbar';
+import axios from 'axios';
+import { TopArtists } from '../../utils/topplaylists';
 
 const Home = () => {
   const navigate = useNavigate();
   const { user, loading } = useUserContext();
+  const [recentlyPlayed, setRecentlyPlayed] = useState([]);
+  const backendURL = import.meta.env.VITE_PUBLIC_BACKEND_URL;
 
   useEffect(() => {
     if (!loading && !user.email) {
@@ -19,33 +23,32 @@ const Home = () => {
     }
   }, [loading, user, navigate]);
 
+  useEffect(() => {
+    const fetchRecentlyPlayed = async () => {
+      try {
+        const response = await axios.get(`${backendURL}/recent`, {
+          withCredentials: true,
+        });
+        console.log(response.data);
+        const songIds = response.data.recentlyPlayed.join(',');
+        console.log(songIds);
+        const songsResponse = await axios.get(
+          `https://saavn.dev/api/songs?ids=${songIds}`
+        );
+        setRecentlyPlayed(songsResponse.data.data);
+      } catch (error) {
+        console.error('Error fetching recentlyPlayed songs:', error);
+      }
+    };
+
+    if (!loading && user.email) {
+      fetchRecentlyPlayed();
+    }
+  }, [loading, user]);
+
   if (loading) {
-    return <div>Loading...</div>; // Or a spinner component
+    return <div>Loading...</div>;
   }
-
-  const dummySongs = [
-    {
-      image: 'https://via.placeholder.com/80',
-      title: 'Pookkal',
-      artist: 'G.V Prakash',
-    },
-    {
-      image: 'https://via.placeholder.com/80',
-      title: 'Poo Nee Poo',
-      artist: 'Anirudh',
-    },
-    {
-      image: 'https://via.placeholder.com/80',
-      title: 'Ava Enna',
-      artist: 'Harris Jayaraj',
-    },
-  ];
-
-  const dummyArtists = [
-    { image: 'https://via.placeholder.com/80', name: 'A.R. Rahman' },
-    { image: 'https://via.placeholder.com/80', name: 'Anirudh' },
-    { image: 'https://via.placeholder.com/80', name: 'Hiphop Tamizha' },
-  ];
 
   return (
     <div className="bg-backgroundColor w-screen min-h-screen text-white">
@@ -53,20 +56,30 @@ const Home = () => {
       <div className="px-4">
         <AlbumCard />
       </div>
-      <Tabs />
+      {/* <Tabs /> */}
       <HorizontalScrollList title="Recently Played">
-        {dummySongs.map((song, index) => (
-          <SongTile key={index} {...song} />
+        {recentlyPlayed.map((song) => (
+          <SongTile
+            key={song.id}
+            image={song.image[2]?.url}
+            title={song.name}
+            artist={song.artists.primary[0]?.name}
+          />
         ))}
       </HorizontalScrollList>
       <HorizontalScrollList title="Artists">
-        {dummyArtists.map((artist, index) => (
+        {TopArtists.map((artist, index) => (
           <ArtistTile key={index} {...artist} />
         ))}
       </HorizontalScrollList>
       <HorizontalScrollList title="Recommended for Today">
-        {dummySongs.map((song, index) => (
-          <SongTile key={index} {...song} />
+        {recentlyPlayed.map((song) => (
+          <SongTile
+            key={song.id}
+            image={song.image[2]?.url}
+            title={song.name}
+            artist={song.artists.primary[0]?.name}
+          />
         ))}
       </HorizontalScrollList>
       <Navbar />

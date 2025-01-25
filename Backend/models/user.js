@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -17,11 +17,11 @@ const userSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
-  likedSongs: {
+  recentlyPlayed: {
     type: Array,
-    default: [],
+    default: ['72Aghy1Y', 'DOYdLczc', '3IoDK8qI'], //will remove default songs later
   },
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;
